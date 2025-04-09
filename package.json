@@ -5,6 +5,7 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.21.2",
     "react": "19.0.0",
     "react-dom": "19.0.0",
@@ -38,6 +39,7 @@
     "@types/node": "^20.0.0",
     "@types/react": "19.0.0",
     "@types/react-dom": "19.0.0",
+    "@types/cors": "^2.8.17",
     "babel-jest": "^29.7.0",
     "esbuild": "^0.19.2",
     "eslint": "^9.8.0",
