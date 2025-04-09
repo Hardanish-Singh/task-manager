@@ -71,7 +71,10 @@ app.post('/api/tasks', (req: Request, res: Response) => {
     };
     tasks.push(newTask);
 
-    return res.status(201).json(newTask);
+    return res.status(201).json({
+      message: 'Task created successfully',
+      data: newTask,
+    });
   } catch (error) {
     console.error('Error creating task:', error);
     return res.status(500).send({ error: 'Error creating task' });
@@ -98,7 +101,10 @@ app.patch('/api/tasks/:id', (req: Request, res: Response) => {
     };
     tasks = tasks.map((task) => (task.id === taskId ? updatedTask : task));
 
-    return res.status(200).json(updatedTask);
+    return res.status(200).json({
+      message: 'Task updated successfully',
+      data: updatedTask,
+    });
   } catch (error) {
     console.error('Error creating task:', error);
     return res.status(500).send({ error: 'Error updating task' });
