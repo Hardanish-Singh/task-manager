@@ -49,7 +49,7 @@ const Tasks = () => {
     >
   ) => {
     const { name, value } = event.target;
-    setData((prevData: any) => ({
+    setData((prevData: Task) => ({
       ...prevData,
       [name]: value,
     }));

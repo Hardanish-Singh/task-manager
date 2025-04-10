@@ -15,7 +15,7 @@ enum Status {
 }
 
 interface Task {
-  id: any;
+  id: string | number;
   title: string;
   description: string;
   status: Status;
