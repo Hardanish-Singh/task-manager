@@ -28,13 +28,38 @@ let tasks: Task[] = [];
 // Endpoint to get all tasks
 app.get('/api/tasks', (req: Request, res: Response) => {
   try {
-    const { status } = req.query;
+    const { status, sortBy, sortOrder, searchTerm } = req.query;
+    let filteredTasks = [...tasks];
+    // Filter by status if provided
     if (status) {
-      return res
-        .status(200)
-        .json(tasks.filter((task) => task.status === status));
+      filteredTasks = filteredTasks.filter((task) => task.status == status);
     }
-    return res.status(200).json(tasks);
+    // Filter by searchTerm if provided (search in both title and description)
+    if (searchTerm && typeof searchTerm === 'string') {
+      filteredTasks = filteredTasks.filter(
+        (task) =>
+          task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          task.description.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    // Sort if sortBy is provided
+    if (sortBy) {
+      const order = sortOrder == 'desc' ? -1 : 1;
+      filteredTasks.sort((a, b) => {
+        const aValue = a[sortBy as keyof Task];
+        const bValue = b[sortBy as keyof Task];
+        // Handle Date objects
+        if (aValue instanceof Date && bValue instanceof Date) {
+          return (aValue.getTime() - bValue.getTime()) * order;
+        }
+        // Handle string comparison
+        if (typeof aValue == 'string' && typeof bValue == 'string') {
+          return aValue.localeCompare(bValue) * order;
+        }
+        return 0;
+      });
+    }
+    return res.status(200).json(filteredTasks);
   } catch (error) {
     console.error('Error fetching tasks:', error);
     return res.status(500).send({ error: 'Error fetching tasks' });
@@ -45,7 +70,7 @@ app.get('/api/tasks', (req: Request, res: Response) => {
 app.get('/api/tasks/:id', (req: Request, res: Response) => {
   try {
     const taskId = req.params.id;
-    const task = tasks.find((task) => task.id === taskId);
+    const task = tasks.find((task) => task.id == taskId);
     if (!task) {
       return res.status(404).send({ error: 'task not found' });
     }
@@ -93,7 +118,7 @@ app.patch('/api/tasks/:id', (req: Request, res: Response) => {
     const taskId = req.params.id;
     const { title, description, status } = req.body;
 
-    const task = tasks.find((task) => task.id === taskId);
+    const task = tasks.find((task) => task.id == taskId);
     if (!task) {
       return res.status(404).send({ error: 'task not found' });
     }
@@ -105,7 +130,7 @@ app.patch('/api/tasks/:id', (req: Request, res: Response) => {
       status: status || task.status,
       updatedAt: new Date(),
     };
-    tasks = tasks.map((task) => (task.id === taskId ? updatedTask : task));
+    tasks = tasks.map((task) => (task.id == taskId ? updatedTask : task));
 
     return res.status(200).json({
       message: 'Task updated successfully',
@@ -121,9 +146,9 @@ app.patch('/api/tasks/:id', (req: Request, res: Response) => {
 app.delete('/api/tasks/:id', (req: Request, res: Response) => {
   try {
     const taskId = req.params.id;
-    const taskIndex = tasks.findIndex((task) => task.id === taskId);
+    const taskIndex = tasks.findIndex((task) => task.id == taskId);
 
-    if (taskIndex === -1) {
+    if (taskIndex == -1) {
       return res.status(404).json({ message: 'Task not found' });
     }
 
