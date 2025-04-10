@@ -28,10 +28,16 @@ let tasks: Task[] = [];
 // Endpoint to get all tasks
 app.get('/api/tasks', (req: Request, res: Response) => {
   try {
-    res.status(200).json(tasks);
+    const { status } = req.query;
+    if (status) {
+      return res
+        .status(200)
+        .json(tasks.filter((task) => task.status === status));
+    }
+    return res.status(200).json(tasks);
   } catch (error) {
     console.error('Error fetching tasks:', error);
-    res.status(500).send({ error: 'Error fetching tasks' });
+    return res.status(500).send({ error: 'Error fetching tasks' });
   }
 });
 
@@ -131,7 +137,7 @@ app.delete('/api/tasks/:id', (req: Request, res: Response) => {
 });
 
 app.get('/', (req: Request, res: Response) => {
-  res.send({ message: 'Task Manager App Running' });
+  return res.send({ message: 'Task Manager App Running' });
 });
 
 app.listen(port, host, () => {

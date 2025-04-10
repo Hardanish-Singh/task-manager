@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Task } from '../types/types';
+import { Status, Task } from '../types/types';
 import DeleteIcon from './DeleteIcon';
 import EditIcon from './EditIcon';
 import LoadingIcon from './LoadingIcon';
@@ -10,12 +10,15 @@ const ViewTasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [status, setStatus] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const fetchTasks = () => {
     (async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/tasks');
+        const response = await axios.get(
+          `http://localhost:3000/api/tasks?status=${status}`
+        );
         setTasks(response.data);
       } catch (error) {
         console.log('Error fetching tasks', error);
@@ -24,7 +27,15 @@ const ViewTasks = () => {
         setLoading(false);
       }
     })();
+  };
+
+  useEffect(() => {
+    fetchTasks();
   }, []);
+
+  useEffect(() => {
+    fetchTasks();
+  }, [status]);
 
   if (error) {
     return <p>Error fetching tasks, please refresh the page and retry</p>;
@@ -36,14 +47,31 @@ const ViewTasks = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center mt-8">
+      <div className="flex justify-between items-center mt-8">
         <button
           type="submit"
-          className="text-white bg-pink-400 hover:bg-pink-500 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+          className="text-white bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-3 text-center"
           onClick={() => navigate('/tasks')}
         >
           Create Task
         </button>
+        <div className="flex items-center">
+          <select
+            name="status"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ml-2"
+            onChange={(event) => {
+              setStatus(event?.target.value);
+            }}
+            value={status}
+          >
+            <option value="" disabled>
+              Choose status
+            </option>
+            <option value="">All</option>
+            <option value={Status.OPEN}>Open</option>
+            <option value={Status.CLOSED}>Closed</option>
+          </select>
+        </div>
       </div>
       <div className="flex justify-center items-center mt-8">
         {tasks.length > 0 ? (
@@ -80,6 +108,7 @@ const ViewTasks = () => {
                     <td className="border px-4 py-2 text-red-700">
                       <DeleteIcon
                         id={task.id!}
+                        title={task.title}
                         updateTasks={() => {
                           const updatedTasks = tasks.filter(
                             (t) => t.id !== task.id

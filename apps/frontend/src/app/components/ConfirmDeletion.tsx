@@ -1,11 +1,12 @@
 import axios from 'axios';
 
 type Props = {
-  onModalClose: (type: string) => void;
   id: string;
+  title: string;
+  onModalClose: (type: string) => void;
 };
 
-const ConfirmDeletion = ({ onModalClose, id }: Props) => {
+const ConfirmDeletion = ({ onModalClose, id, title }: Props) => {
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:3000/api/tasks/${id}`);
@@ -55,7 +56,7 @@ const ConfirmDeletion = ({ onModalClose, id }: Props) => {
                     className="text-base font-semibold text-gray-900"
                     id="modal-title"
                   >
-                    Delete Task
+                    Delete {title}
                   </h3>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">

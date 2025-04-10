@@ -3,10 +3,11 @@ import ConfirmDeletion from './ConfirmDeletion';
 
 type Props = {
   id: string;
+  title: string;
   updateTasks: () => void;
 };
 
-const DeleteIcon = ({ id, updateTasks }: Props) => {
+const DeleteIcon = ({ id, updateTasks, title }: Props) => {
   const [showDeletionModal, setShowDeletionModal] = useState(false);
 
   return (
@@ -34,6 +35,7 @@ const DeleteIcon = ({ id, updateTasks }: Props) => {
       {showDeletionModal && (
         <ConfirmDeletion
           id={id}
+          title={title}
           onModalClose={(type) => {
             if (type === 'delete') updateTasks();
             setShowDeletionModal(false);
