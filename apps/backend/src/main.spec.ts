@@ -36,6 +36,102 @@ describe('API Endpoints', () => {
       expect(res.data).toEqual([]);
     });
 
+    it('should filter tasks by status', async () => {
+      const tasks = [
+        {
+          id: 'cd6c9362-96cb-4604-9506-c36dc6e2974f',
+          title: 'title 1',
+          description: 'description 1',
+          status: 'OPEN',
+          createdAt: '2025-04-09T18:32:08.416Z',
+          updatedAt: '2025-04-09T18:32:08.416Z',
+        },
+        {
+          id: '2d6c9362-96cb-4604-9506-c36dc6e2974f',
+          title: 'title 2',
+          description: 'description 2',
+          status: 'CLOSED',
+          createdAt: '2025-04-09T18:32:08.416Z',
+          updatedAt: '2025-04-09T18:32:08.416Z',
+        },
+      ];
+      mockedAxios.get.mockResolvedValue({
+        status: 200,
+        data: tasks.filter((task) => task.status === 'OPEN'),
+      });
+      const res = await axios.get('/api/tasks?status=OPEN');
+      expect(res.status).toBe(200);
+      expect(res.data).toEqual([tasks[0]]);
+    });
+
+    it('should filter tasks by searchTerm (title and description)', async () => {
+      const tasks = [
+        {
+          id: 'cd6c9362-96cb-4604-9506-c36dc6e2974f',
+          title: 'title 1',
+          description: 'description 1',
+          status: 'OPEN',
+          createdAt: '2025-04-09T18:32:08.416Z',
+          updatedAt: '2025-04-09T18:32:08.416Z',
+        },
+        {
+          id: '2d6c9362-96cb-4604-9506-c36dc6e2974f',
+          title: 'task 2',
+          description: 'description 2',
+          status: 'CLOSED',
+          createdAt: '2025-04-09T18:32:08.416Z',
+          updatedAt: '2025-04-09T18:32:08.416Z',
+        },
+      ];
+      mockedAxios.get.mockResolvedValue({
+        status: 200,
+        data: tasks.filter(
+          (task) =>
+            task.title.toLowerCase().includes('title 1') ||
+            task.description.toLowerCase().includes('description 1')
+        ),
+      });
+      const res = await axios.get('/api/tasks?searchTerm=title');
+      expect(res.status).toBe(200);
+      expect(res.data).toStrictEqual([tasks[0]]);
+    });
+
+    it('should sort tasks by title (ascending)', async () => {
+      const tasks = [
+        {
+          id: 'cd6c9362-96cb-4604-9506-c36dc6e2974f',
+          title: 'Banana',
+          description: 'description 1',
+          status: 'OPEN',
+          createdAt: '2025-04-09T18:32:08.416Z',
+          updatedAt: '2025-04-09T18:32:08.416Z',
+        },
+        {
+          id: '2d6c9362-96cb-4604-9506-c36dc6e2974f',
+          title: 'Apple',
+          description: 'description 2',
+          status: 'CLOSED',
+          createdAt: '2025-04-10T18:32:08.416Z',
+          updatedAt: '2025-04-10T18:32:08.416Z',
+        },
+        {
+          id: '3e6c9362-96cb-4604-9506-c36dc6e2974f',
+          title: 'Cherry',
+          description: 'description 3',
+          status: 'OPEN',
+          createdAt: '2025-04-10T18:32:08.416Z',
+          updatedAt: '2025-04-10T18:32:08.416Z',
+        },
+      ];
+      mockedAxios.get.mockResolvedValue({
+        status: 200,
+        data: [...tasks].sort((a, b) => a.title.localeCompare(b.title)),
+      });
+      const res = await axios.get('/api/tasks?sortBy=title&sortOrder=asc');
+      expect(res.status).toBe(200);
+      expect(res.data).toStrictEqual([tasks[1], tasks[0], tasks[2]]);
+    });
+
     it('should return 500 if there is a server error', async () => {
       mockedAxios.get.mockRejectedValue(new Error('Internal Server Error'));
       try {
