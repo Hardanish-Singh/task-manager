@@ -24,7 +24,7 @@ const Tasks = () => {
           );
           setData(response.data);
         } catch (error) {
-          console.log('Error fetching task', error);
+          console.error('Error fetching task', error);
           setError(true);
         } finally {
           setLoading(false);
@@ -55,7 +55,7 @@ const Tasks = () => {
     }));
   };
 
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async () => {
     if (id) {
       try {
         const response = await axios.patch(

@@ -3,10 +3,12 @@ import ConfirmDeletion from './ConfirmDeletion';
 
 type Props = {
   id: string;
+  updateTasks: () => void;
 };
 
-const DeleteIcon = ({ id }: Props) => {
-  const [showConfirm, setShowConfirm] = useState(false);
+const DeleteIcon = ({ id, updateTasks }: Props) => {
+  const [showDeletionModal, setShowDeletionModal] = useState(false);
+
   return (
     <div className="flex justify-center items-center">
       <svg
@@ -18,7 +20,7 @@ const DeleteIcon = ({ id }: Props) => {
         viewBox="0 0 24 24"
         stroke="currentColor"
         onClick={() => {
-          setShowConfirm(true);
+          setShowDeletionModal(true);
         }}
       >
         <path
@@ -29,8 +31,14 @@ const DeleteIcon = ({ id }: Props) => {
         />
       </svg>
 
-      {showConfirm && (
-        <ConfirmDeletion onCancel={() => setShowConfirm(false)} id={id} />
+      {showDeletionModal && (
+        <ConfirmDeletion
+          id={id}
+          onModalClose={(type) => {
+            if (type === 'delete') updateTasks();
+            setShowDeletionModal(false);
+          }}
+        />
       )}
     </div>
   );

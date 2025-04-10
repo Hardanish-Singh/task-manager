@@ -1,15 +1,18 @@
 import axios from 'axios';
 
 type Props = {
-  onCancel: () => void;
+  onModalClose: (type: string) => void;
   id: string;
 };
 
-const ConfirmDeletion = ({ onCancel, id }: Props) => {
+const ConfirmDeletion = ({ onModalClose, id }: Props) => {
   const handleDelete = async () => {
-    await axios.delete(`http://localhost:3000/api/tasks/${id}`);
-    onCancel();
-    window.location.reload();
+    try {
+      await axios.delete(`http://localhost:3000/api/tasks/${id}`);
+      onModalClose('delete');
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
   };
 
   return (
@@ -73,7 +76,9 @@ const ConfirmDeletion = ({ onCancel, id }: Props) => {
               <button
                 type="button"
                 className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                onClick={onCancel}
+                onClick={() => {
+                  onModalClose('cancel');
+                }}
               >
                 Cancel
               </button>

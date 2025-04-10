@@ -78,7 +78,15 @@ const ViewTasks = () => {
                       <EditIcon id={task.id!} />
                     </td>
                     <td className="border px-4 py-2">
-                      <DeleteIcon id={task.id!} />
+                      <DeleteIcon
+                        id={task.id!}
+                        updateTasks={() => {
+                          const updatedTasks = tasks.filter(
+                            (t) => t.id !== task.id
+                          );
+                          setTasks(updatedTasks);
+                        }}
+                      />
                     </td>
                   </tr>
                 ))}
