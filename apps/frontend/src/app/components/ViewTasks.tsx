@@ -42,7 +42,7 @@ const ViewTasks = () => {
           className="text-white bg-pink-400 hover:bg-pink-500 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
           onClick={() => navigate('/tasks')}
         >
-          Add Task
+          Create Task
         </button>
       </div>
       <div className="flex justify-center items-center mt-8">
@@ -51,10 +51,10 @@ const ViewTasks = () => {
             <table className="min-w-full table-auto border-collapse">
               <thead className="sticky top-0 bg-white z-10">
                 <tr>
-                  <th className="border px-4 py-2">Title</th>
-                  <th className="border px-4 py-2">Description</th>
-                  <th className="border px-4 py-2">Status</th>
-                  <th className="border px-4 py-2">Created At</th>
+                  <th className="border px-4 py-2 text-left">Title</th>
+                  <th className="border px-4 py-2 text-left">Description</th>
+                  <th className="border px-4 py-2 text-left">Status</th>
+                  <th className="border px-4 py-2 text-left">Created At</th>
                   <th className="border px-4 py-2">Edit task</th>
                   <th className="border px-4 py-2">Delete task</th>
                 </tr>
@@ -74,10 +74,10 @@ const ViewTasks = () => {
                     <td className="border px-4 py-2">
                       {new Date(task.createdAt!).toLocaleDateString()}
                     </td>
-                    <td className="border px-4 py-2">
+                    <td className="border px-4 py-2 text-blue-500">
                       <EditIcon id={task.id!} />
                     </td>
-                    <td className="border px-4 py-2">
+                    <td className="border px-4 py-2 text-red-700">
                       <DeleteIcon
                         id={task.id!}
                         updateTasks={() => {
