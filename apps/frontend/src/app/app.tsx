@@ -1,22 +1,17 @@
-import axios from 'axios';
-import { useEffect } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import Tasks from './components/Tasks';
+import ViewTasks from './components/ViewTasks';
 
-export function App() {
-  useEffect(() => {
-    // async IIFE
-    (async () => {
-      const response = await axios.get('http://localhost:3000/');
-      console.log('RESPONSE', response);
-    })();
-  }, []);
-
+const App = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <header className="bg-blue-500 text-white p-4">
         <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Task Manager</h1>
+          <h1 className="text-2xl font-bold">
+            <Link to="/" className="cursor-pointer">
+              Task Manager
+            </Link>{' '}
+          </h1>
           <nav>
             <ul className="flex space-x-6">
               <li>
@@ -37,9 +32,9 @@ export function App() {
       <main className="flex-grow p-6">
         <div className="container mx-auto">
           <Routes>
-            <Route path="/" element={<Tasks />} />
-            <Route path="/tasks" element={<>Create Task</>} />
-            <Route path="/tasks/:id" element={<>Task by id</>} />
+            <Route path="/" element={<ViewTasks />} />
+            <Route path="/tasks" element={<Tasks />} />
+            <Route path="/tasks/:id" element={<Tasks />} />
           </Routes>
         </div>
       </main>
@@ -51,6 +46,6 @@ export function App() {
       </footer>
     </div>
   );
-}
+};
 
 export default App;

@@ -106,7 +106,7 @@ app.patch('/api/tasks/:id', (req: Request, res: Response) => {
       data: updatedTask,
     });
   } catch (error) {
-    console.error('Error creating task:', error);
+    console.error('Error updating task:', error);
     return res.status(500).send({ error: 'Error updating task' });
   }
 });
@@ -125,7 +125,7 @@ app.delete('/api/tasks/:id', (req: Request, res: Response) => {
     tasks.splice(taskIndex, 1);
     return res.status(200).json({ message: 'Task deleted' });
   } catch (error) {
-    console.error('Error creating task:', error);
+    console.error('Error deleting task:', error);
     return res.status(500).send({ error: 'Error deleting task' });
   }
 });
