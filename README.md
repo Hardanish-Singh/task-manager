@@ -52,4 +52,6 @@ npx nx test frontend
 npx nx serve backend
 # RUN BACKEND TESTS
 npx nx test backend
+# SERVER URL
+http://localhost:3000/
 ```
