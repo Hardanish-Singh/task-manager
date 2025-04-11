@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 const EditIcon = ({ id }: { id: string }) => {
   const navigate = useNavigate();
+
   return (
     <div className="flex justify-center items-center">
       <svg
