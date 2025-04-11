@@ -23,6 +23,7 @@ const DeleteIcon = ({ id, updateTasks, title }: Props) => {
         onClick={() => {
           setShowDeletionModal(true);
         }}
+        data-testid="delete-icon"
       >
         <path
           strokeLinecap="round"

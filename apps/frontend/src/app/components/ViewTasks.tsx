@@ -27,7 +27,7 @@ const ViewTasks = () => {
         );
         setTasks(response.data);
       } catch (error) {
-        console.log('Error fetching tasks', error);
+        console.error('Error fetching tasks', error);
         setError(true);
       } finally {
         setLoading(false);
