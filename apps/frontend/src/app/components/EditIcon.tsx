@@ -13,6 +13,7 @@ const EditIcon = ({ id }: { id: string }) => {
         viewBox="0 0 24 24"
         stroke="currentColor"
         onClick={() => navigate(`/tasks/${id}`)}
+        data-testid="edit-icon"
       >
         {' '}
         <path

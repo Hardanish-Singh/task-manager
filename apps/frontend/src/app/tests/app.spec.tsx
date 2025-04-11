@@ -31,5 +31,6 @@ describe('App', () => {
     expect(getAllByText(/Task Manager/i)).toBeTruthy();
     expect(getAllByText(/Home/i)).toBeTruthy();
     expect(getAllByText(/Create Task/i)).toBeTruthy();
+    expect(getAllByText(/2025 Task Manager/i)).toBeTruthy();
   });
 });

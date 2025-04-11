@@ -29,6 +29,7 @@ describe('Tasks', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
+
   it('renders loading state', () => {
     jest
       .spyOn(require('react-router-dom'), 'useParams')

@@ -34,7 +34,7 @@ const tasksMock = [
 jest.spyOn(console, 'warn').mockImplementation(() => {});
 jest.spyOn(console, 'error').mockImplementation(() => {});
 
-describe('ViewTasks Component', () => {
+describe('ViewTasks', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -49,6 +49,22 @@ describe('ViewTasks Component', () => {
       </BrowserRouter>
     );
     expect(getAllByText(/Loading.../i)).toBeTruthy();
+  });
+
+  it('should display an error message if fetching tasks fails', async () => {
+    (axios.get as jest.Mock).mockRejectedValueOnce(new Error('Network error'));
+    render(
+      <BrowserRouter>
+        <ViewTasks />
+      </BrowserRouter>
+    );
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          'Error fetching tasks, please refresh the page and retry'
+        )
+      ).toBeTruthy();
+    });
   });
 
   it('should render tasks in a table when tasks are fetched successfully', async () => {
@@ -66,22 +82,6 @@ describe('ViewTasks Component', () => {
       expect(screen.getByText('title 2')).toBeTruthy();
       expect(screen.getByText('description 2')).toBeTruthy();
       expect(screen.getByText('CLOSED')).toBeTruthy();
-    });
-  });
-
-  it('should display an error message if fetching tasks fails', async () => {
-    (axios.get as jest.Mock).mockRejectedValueOnce(new Error('Network error'));
-    render(
-      <BrowserRouter>
-        <ViewTasks />
-      </BrowserRouter>
-    );
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          'Error fetching tasks, please refresh the page and retry'
-        )
-      ).toBeTruthy();
     });
   });
 
