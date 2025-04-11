@@ -1,4 +1,4 @@
-# TshirtDesigner
+# Task Manager
 
 ## SETUP USING DOCKER COMPOSE
 
