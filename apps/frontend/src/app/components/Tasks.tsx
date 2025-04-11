@@ -118,8 +118,15 @@ const Tasks = () => {
           onChange={handleChange}
           placeholder="Enter Title"
           value={data.title}
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-1/2 ml-16"
+          className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-1/2 ml-16 ${
+            data.status === Status.CLOSED ? 'cursor-not-allowed' : ''
+          }`}
           readOnly={data.status === Status.CLOSED}
+          title={
+            data.status === Status.CLOSED
+              ? 'Task is closed – editing is disabled'
+              : ''
+          }
         />
       </div>
       <div className="flex items-center mt-8">
@@ -131,9 +138,16 @@ const Tasks = () => {
           onChange={handleChange}
           value={data.description}
           rows={6}
-          className="block p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-1/2 ml-4 resize-none"
+          className={`block p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-1/2 ml-4 resize-none ${
+            data.status === Status.CLOSED ? 'cursor-not-allowed' : ''
+          }`}
           placeholder="Write your description here..."
           readOnly={data.status === Status.CLOSED}
+          title={
+            data.status === Status.CLOSED
+              ? 'Task is closed – editing is disabled'
+              : ''
+          }
         ></textarea>
       </div>
 
