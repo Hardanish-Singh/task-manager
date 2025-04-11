@@ -39,9 +39,20 @@ docker-compose up
 Run URL: http://localhost:4200/
 ```
 
+### Step 4
+
+```sh
+docker-compose down
+```
+
 ## SETUP ON LOCAL INSTALLATION
 
 ### Step 1
+```sh
+git clone https://github.com/Hardanish-Singh/task-manager.git
+```
+
+### Step 2
 
 ```sh
 npm i
