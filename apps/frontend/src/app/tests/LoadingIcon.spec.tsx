@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import LoadingIcon from '../components/LoadingIcon';
 
-describe('LoadingIcon Component', () => {
+describe('LoadingIcon', () => {
   it('should render the SVG icon', () => {
     render(<LoadingIcon />);
     const statusDiv = screen.getByRole('status') as any;

@@ -10,7 +10,7 @@ jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
 }));
 
-describe('EditIcon Component', () => {
+describe('EditIcon', () => {
   const mockNavigate = jest.fn();
   const mockId = 'task-id';
 

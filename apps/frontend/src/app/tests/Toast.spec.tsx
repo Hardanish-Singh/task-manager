@@ -3,7 +3,7 @@ import Toast from '../components/Toast';
 
 jest.useFakeTimers(); // Mock setTimeout and setInterval
 
-describe('Toast Component', () => {
+describe('Toast', () => {
   it('renders with the correct message and style for success type', () => {
     const onClose = jest.fn();
     const message = 'Success message';
