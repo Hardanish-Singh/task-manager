@@ -6,5 +6,9 @@ export default {
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  collectCoverage: true,
   coverageDirectory: 'test-output/jest/coverage',
+  coverageReporters: ['html', 'text'],
+  // Optionally include/exclude specific files
+  collectCoverageFrom: ['**/*.tsx', '!**/*.spec.ts'],
 };
