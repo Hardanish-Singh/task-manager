@@ -1,5 +1,24 @@
 # Task Manager
 
+Task Manager is a full-stack web application built using the NX Monorepo architecture. The frontend is developed using ReactJS, and the backend is powered by ExpressJS. This app allows users to manage tasks with basic CRUD (Create, Read, Update, Delete) operations.
+
+## Features
+
+- **Create**: Add new tasks with a title and description.
+- **Read**: View a list of all tasks, with filtering and sorting options.
+- **Update**: Modify the details of an existing task, including status, title, and description.
+- **Delete**: Remove tasks from the system.
+
+## Tech Stack
+
+- **Frontend**: ReactJS
+- **Backend**: ExpressJS
+- **Database**: In-memory array (Tasks are stored in an array during runtime)
+- **Monorepo Management**: NX Monorepo
+- **Utilities**:
+  - `uuid`: Generates unique identifiers for tasks.
+  - `cors`: Enables Cross-Origin Resource Sharing (CORS) for API requests.
+
 ## SETUP USING DOCKER COMPOSE
 
 ### Step 1
