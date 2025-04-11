@@ -17,7 +17,6 @@ describe('Toast', () => {
     const message = 'Error message';
     const type = 'error';
     render(<Toast message={message} type={type} onClose={onClose} />);
-    // Check if the message is rendered correctly
     expect(screen.getByText(message)).toBeTruthy();
   });
 
@@ -28,7 +27,6 @@ describe('Toast', () => {
     render(<Toast message={message} type={type} onClose={onClose} />);
     // Fast-forward time by 1 second
     jest.advanceTimersByTime(1000);
-    // Expect onClose to have been called after 1 second
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 

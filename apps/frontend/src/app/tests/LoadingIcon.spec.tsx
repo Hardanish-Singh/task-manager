@@ -9,6 +9,7 @@ describe('LoadingIcon', () => {
     expect(svgElement).toBeTruthy();
     expect(svgElement?.classList.contains('animate-spin')).toBe(true);
   });
+
   it('should have a screen reader accessible loading text', () => {
     render(<LoadingIcon />);
     const loadingText = screen.getByText(/loading/i) as any;
