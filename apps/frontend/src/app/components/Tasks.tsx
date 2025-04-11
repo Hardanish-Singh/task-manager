@@ -13,6 +13,7 @@ const Tasks = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [toast, setToast] = useState(intialToast);
+  const [isSubmitClicked, setIsSubmitClicked] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -58,6 +59,7 @@ const Tasks = () => {
   const handleSubmit = async () => {
     if (id) {
       try {
+        setIsSubmitClicked(true);
         const response = await axios.patch(
           `http://localhost:3000/api/tasks/${data.id}`,
           data
@@ -70,6 +72,7 @@ const Tasks = () => {
           });
         }
       } catch (error) {
+        setIsSubmitClicked(false);
         console.error('Error updating task', error);
         setToast({
           message: 'Error updating task',
@@ -79,6 +82,7 @@ const Tasks = () => {
       }
     } else {
       try {
+        setIsSubmitClicked(true);
         const response = await axios.post(
           'http://localhost:3000/api/tasks',
           data
@@ -91,6 +95,7 @@ const Tasks = () => {
           });
         }
       } catch (error) {
+        setIsSubmitClicked(false);
         console.error('Error creating task:', error);
         setToast({
           message: 'Error creating task',
@@ -114,6 +119,7 @@ const Tasks = () => {
           placeholder="Enter Title"
           value={data.title}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-1/2 ml-16"
+          readOnly={data.status === Status.CLOSED}
         />
       </div>
       <div className="flex items-center mt-8">
@@ -125,8 +131,9 @@ const Tasks = () => {
           onChange={handleChange}
           value={data.description}
           rows={6}
-          className="block p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-1/2 ml-4"
+          className="block p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-1/2 ml-4 resize-none"
           placeholder="Write your description here..."
+          readOnly={data.status === Status.CLOSED}
         ></textarea>
       </div>
 
@@ -160,7 +167,11 @@ const Tasks = () => {
         <div className="w-1/2 ml-12 flex justify-center">
           <button
             type="submit"
-            disabled={data.title.length === 0 || data.description.length === 0}
+            disabled={
+              data.title.length === 0 ||
+              data.description.length === 0 ||
+              isSubmitClicked
+            }
             className="text-white bg-blue-700 disabled:bg-blue-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer"
             onClick={handleSubmit}
           >
