@@ -91,7 +91,6 @@ app.post('/api/tasks', (req: Request, res: Response) => {
     if (!description) {
       return res.status(400).json({ message: 'Description is required' });
     }
-
     const newTask = {
       id: uuidv4(),
       title,
@@ -101,7 +100,6 @@ app.post('/api/tasks', (req: Request, res: Response) => {
       updatedAt: new Date(),
     };
     tasks.push(newTask);
-
     return res.status(201).json({
       message: 'Task created successfully',
       data: newTask,
@@ -122,7 +120,6 @@ app.patch('/api/tasks/:id', (req: Request, res: Response) => {
     if (!task) {
       return res.status(404).send({ error: 'task not found' });
     }
-
     const updatedTask = {
       ...task,
       title: title || task.title,
@@ -131,7 +128,6 @@ app.patch('/api/tasks/:id', (req: Request, res: Response) => {
       updatedAt: new Date(),
     };
     tasks = tasks.map((task) => (task.id == taskId ? updatedTask : task));
-
     return res.status(200).json({
       message: 'Task updated successfully',
       data: updatedTask,
@@ -147,11 +143,9 @@ app.delete('/api/tasks/:id', (req: Request, res: Response) => {
   try {
     const taskId = req.params.id;
     const taskIndex = tasks.findIndex((task) => task.id == taskId);
-
     if (taskIndex == -1) {
       return res.status(404).json({ message: 'Task not found' });
     }
-
     // Remove task from the array
     tasks.splice(taskIndex, 1);
     return res.status(200).json({ message: 'Task deleted' });
