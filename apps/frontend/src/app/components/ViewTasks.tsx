@@ -91,7 +91,7 @@ const ViewTasks = () => {
           </select>
         </div>
       </div>
-      <div className="flex mt-8">
+      <div className="flex justify-end mt-8">
         <input
           type="text"
           name="searchTerm"
@@ -100,7 +100,7 @@ const ViewTasks = () => {
           }}
           placeholder="Search Title, Description..."
           value={searchTerm}
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-1/2"
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-200 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-1/3"
         />
       </div>
       <div className="flex justify-center items-center mt-8">
@@ -147,12 +147,7 @@ const ViewTasks = () => {
               <tbody>
                 {tasks.map((task: Task) => (
                   <tr key={task.id}>
-                    <td
-                      className="border px-4 py-2 cursor-pointer text-blue-500 hover:text-blue-700"
-                      onClick={() => navigate(`/tasks/${task.id}`)}
-                    >
-                      {task.title}
-                    </td>
+                    <td className="border px-4 py-2">{task.title}</td>
                     <td className="border px-4 py-2">{task.description}</td>
                     <td className="border px-4 py-2">{task.status}</td>
                     <td className="border px-4 py-2">
@@ -179,7 +174,7 @@ const ViewTasks = () => {
             </table>
           </div>
         ) : (
-          <p>No Tasks available</p>
+          <p className="text-2xl">No Tasks Available</p>
         )}
       </div>
     </>
