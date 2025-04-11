@@ -77,7 +77,6 @@ describe('Tasks', () => {
       });
       expect(screen.getByDisplayValue('Updated Description')).toBeTruthy();
     });
-
     (axios.post as jest.Mock).mockResolvedValueOnce({
       status: 201,
       message: 'Task created successfully',
