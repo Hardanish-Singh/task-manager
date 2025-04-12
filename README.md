@@ -49,11 +49,6 @@ docker-compose down
 ## SETUP ON LOCAL INSTALLATION
 
 ### Step 1
-```sh
-git clone https://github.com/Hardanish-Singh/task-manager.git
-```
-
-### Step 2
 
 ```sh
 npm i
