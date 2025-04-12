@@ -18,6 +18,7 @@ Task Manager is a full-stack web application built using the NX Monorepo archite
 - **Utilities**:
   - `uuid`: Generates unique identifiers for tasks.
   - `cors`: Enables Cross-Origin Resource Sharing (CORS) for API requests.
+  - `helmet`: Helmet helps you secure your Express apps by setting various HTTP headers. It's not a silver bullet, but it can help!
 
 ## SETUP USING DOCKER COMPOSE
 
