@@ -24,11 +24,9 @@ router.get('/', (req: Request, res: Response) => {
   try {
     const { status, sortBy, sortOrder, searchTerm } = req.query;
     let filteredTasks = [...tasks];
-
     if (status) {
       filteredTasks = filteredTasks.filter((task) => task.status == status);
     }
-
     if (searchTerm && typeof searchTerm === 'string') {
       filteredTasks = filteredTasks.filter(
         (task) =>
@@ -36,7 +34,6 @@ router.get('/', (req: Request, res: Response) => {
           task.description.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-
     if (sortBy) {
       const order = sortOrder === 'desc' ? -1 : 1;
       filteredTasks.sort((a, b) => {
@@ -51,7 +48,6 @@ router.get('/', (req: Request, res: Response) => {
         return 0;
       });
     }
-
     return res.status(200).json(filteredTasks);
   } catch (error) {
     console.error('Error fetching tasks:', error);
@@ -82,7 +78,6 @@ router.post('/', (req: Request, res: Response) => {
         .status(400)
         .json({ message: 'Title and description are required' });
     }
-
     const newTask: Task = {
       id: uuidv4(),
       title,
@@ -91,7 +86,6 @@ router.post('/', (req: Request, res: Response) => {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-
     tasks.push(newTask);
     return res
       .status(201)
@@ -107,12 +101,10 @@ router.patch('/:id', (req: Request, res: Response) => {
   try {
     const taskId = req.params.id;
     const { title, description, status } = req.body;
-
     const task = tasks.find((task) => task.id == taskId);
     if (!task) {
       return res.status(404).json({ error: 'Task not found' });
     }
-
     const updatedTask = {
       ...task,
       title: title ?? task.title,
@@ -120,7 +112,6 @@ router.patch('/:id', (req: Request, res: Response) => {
       status: status ?? task.status,
       updatedAt: new Date(),
     };
-
     tasks = tasks.map((task) => (task.id == taskId ? updatedTask : task));
     return res
       .status(200)
@@ -138,7 +129,6 @@ router.delete('/:id', (req: Request, res: Response) => {
     if (taskIndex === -1) {
       return res.status(404).json({ message: 'Task not found' });
     }
-
     tasks.splice(taskIndex, 1);
     return res.status(200).json({ message: 'Task deleted' });
   } catch (error) {
