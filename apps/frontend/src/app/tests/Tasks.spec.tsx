@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import axios from 'axios';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import Tasks from '../components/Tasks';
 
 jest.mock('axios');
@@ -35,9 +35,9 @@ describe('Tasks', () => {
       .spyOn(require('react-router-dom'), 'useParams')
       .mockReturnValue({ id: '123' });
     const { baseElement } = render(
-      <Router>
+      <BrowserRouter>
         <Tasks />
-      </Router>
+      </BrowserRouter>
     );
     expect(baseElement).toBeTruthy();
     expect(screen.getByText('Loading...')).toBeTruthy();
@@ -46,9 +46,9 @@ describe('Tasks', () => {
   it('should populate the form', async () => {
     jest.spyOn(require('react-router-dom'), 'useParams').mockReturnValue({});
     render(
-      <Router>
+      <BrowserRouter>
         <Tasks />
-      </Router>
+      </BrowserRouter>
     );
     await waitFor(() => {
       expect(screen.getByText('Title')).toBeTruthy();
@@ -61,9 +61,9 @@ describe('Tasks', () => {
   it('should update input fields on change', async () => {
     jest.spyOn(require('react-router-dom'), 'useParams').mockReturnValue({});
     render(
-      <Router>
+      <BrowserRouter>
         <Tasks />
-      </Router>
+      </BrowserRouter>
     );
     await waitFor(() => {
       const titleInput = screen.getByPlaceholderText('Enter Title');
@@ -84,6 +84,24 @@ describe('Tasks', () => {
     fireEvent.click(screen.getByText('Submit'));
     await waitFor(() => {
       expect(MockToast).toBeTruthy();
+    });
+  });
+  it('should display an error message if fetching a task fails', async () => {
+    jest
+      .spyOn(require('react-router-dom'), 'useParams')
+      .mockReturnValue({ id: '123' });
+    (axios.get as jest.Mock).mockRejectedValueOnce(new Error('Network error'));
+    render(
+      <BrowserRouter>
+        <Tasks />
+      </BrowserRouter>
+    );
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          'Error fetching task, please refresh the page and retry'
+        )
+      ).toBeTruthy();
     });
   });
 });
