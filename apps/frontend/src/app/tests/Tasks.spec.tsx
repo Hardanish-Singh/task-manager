@@ -34,22 +34,26 @@ describe('Tasks', () => {
     jest
       .spyOn(require('react-router-dom'), 'useParams')
       .mockReturnValue({ id: '123' });
+
     const { baseElement } = render(
       <BrowserRouter>
         <Tasks />
       </BrowserRouter>
     );
+
     expect(baseElement).toBeTruthy();
     expect(screen.getByText('Loading...')).toBeTruthy();
   });
 
   it('should populate the form', async () => {
     jest.spyOn(require('react-router-dom'), 'useParams').mockReturnValue({});
+
     render(
       <BrowserRouter>
         <Tasks />
       </BrowserRouter>
     );
+
     await waitFor(() => {
       expect(screen.getByText('Title')).toBeTruthy();
       expect(screen.getByText('Description')).toBeTruthy();
@@ -60,15 +64,18 @@ describe('Tasks', () => {
 
   it('should update input fields on change', async () => {
     jest.spyOn(require('react-router-dom'), 'useParams').mockReturnValue({});
+
     render(
       <BrowserRouter>
         <Tasks />
       </BrowserRouter>
     );
+
     await waitFor(() => {
       const titleInput = screen.getByPlaceholderText('Enter Title');
       fireEvent.change(titleInput, { target: { value: 'Updated Title' } });
       expect(screen.getByDisplayValue('Updated Title')).toBeTruthy();
+
       const descriptionInput = screen.getByPlaceholderText(
         'Write your description here...'
       );
@@ -77,25 +84,32 @@ describe('Tasks', () => {
       });
       expect(screen.getByDisplayValue('Updated Description')).toBeTruthy();
     });
+
     (axios.post as jest.Mock).mockResolvedValueOnce({
       status: 201,
       message: 'Task created successfully',
     });
+
     fireEvent.click(screen.getByText('Submit'));
+
     await waitFor(() => {
       expect(MockToast).toBeTruthy();
     });
   });
+
   it('should display an error message if fetching a task fails', async () => {
     jest
       .spyOn(require('react-router-dom'), 'useParams')
       .mockReturnValue({ id: '123' });
+
     (axios.get as jest.Mock).mockRejectedValueOnce(new Error('Network error'));
+
     render(
       <BrowserRouter>
         <Tasks />
       </BrowserRouter>
     );
+
     await waitFor(() => {
       expect(
         screen.getByText(
