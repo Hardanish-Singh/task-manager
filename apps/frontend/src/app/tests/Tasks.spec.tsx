@@ -104,4 +104,51 @@ describe('Tasks', () => {
       ).toBeTruthy();
     });
   });
+
+  it('should update task when id is present (edit mode)', async () => {
+    jest
+      .spyOn(require('react-router-dom'), 'useParams')
+      .mockReturnValue({ id: '123' });
+
+    (axios.get as jest.Mock).mockResolvedValueOnce({
+      data: {
+        id: '123',
+        title: 'Old Title',
+        description: 'Old Description',
+        status: 'OPEN',
+      },
+    });
+
+    render(
+      <BrowserRouter>
+        <Tasks />
+      </BrowserRouter>
+    );
+
+    await waitFor(() => {
+      expect(screen.getByDisplayValue('Old Title')).toBeTruthy();
+      expect(screen.getByDisplayValue('Old Description')).toBeTruthy();
+    });
+
+    const titleInput = screen.getByPlaceholderText('Enter Title');
+    fireEvent.change(titleInput, { target: { value: 'New Title' } });
+
+    const descriptionInput = screen.getByPlaceholderText(
+      'Write your description here...'
+    );
+    fireEvent.change(descriptionInput, {
+      target: { value: 'New Description' },
+    });
+
+    (axios.put as jest.Mock).mockResolvedValueOnce({
+      status: 200,
+      data: { message: 'Task updated successfully' },
+    });
+
+    fireEvent.click(screen.getByText('Submit'));
+
+    await waitFor(() => {
+      expect(MockToast).toBeTruthy();
+    });
+  });
 });
