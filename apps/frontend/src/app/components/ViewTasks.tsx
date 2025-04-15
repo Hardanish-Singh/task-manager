@@ -19,12 +19,9 @@ const ViewTasks = () => {
   const fetchTasks = () => {
     (async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/api/tasks?status=${status}`,
-          {
-            params: { sortBy, sortOrder, searchTerm },
-          }
-        );
+        const response = await axios.get(`http://localhost:3000/api/tasks`, {
+          params: { sortBy, sortOrder, searchTerm, status },
+        });
         setTasks(response.data);
       } catch (error) {
         console.error('Error fetching tasks', error);
