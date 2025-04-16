@@ -33,6 +33,7 @@ describe('ConfirmDeletion', () => {
 
   it('should call axios.delete when the delete button is clicked', async () => {
     (axios.delete as jest.Mock).mockResolvedValueOnce({});
+
     render(
       <ConfirmDeletion
         id={taskId}
@@ -40,7 +41,9 @@ describe('ConfirmDeletion', () => {
         onModalClose={mockOnModalClose}
       />
     );
+
     fireEvent.click(screen.getByTestId('delete-button'));
+
     await waitFor(() => {
       expect(axios.delete).toHaveBeenCalledWith(
         `http://localhost:3000/api/tasks/${taskId}`
@@ -57,7 +60,9 @@ describe('ConfirmDeletion', () => {
         onModalClose={mockOnModalClose}
       />
     );
+
     fireEvent.click(screen.getByText('Cancel'));
+
     expect(mockOnModalClose).toHaveBeenCalledWith('cancel');
   });
 
@@ -65,6 +70,7 @@ describe('ConfirmDeletion', () => {
     (axios.delete as jest.Mock).mockRejectedValueOnce(
       new Error('Failed to delete task')
     );
+
     render(
       <ConfirmDeletion
         id={taskId}
@@ -72,7 +78,9 @@ describe('ConfirmDeletion', () => {
         onModalClose={mockOnModalClose}
       />
     );
+
     fireEvent.click(screen.getByTestId('delete-button'));
+
     await waitFor(() => {
       expect(axios.delete).toHaveBeenCalledWith(
         `http://localhost:3000/api/tasks/${taskId}`
