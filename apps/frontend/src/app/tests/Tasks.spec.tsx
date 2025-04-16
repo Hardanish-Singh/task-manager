@@ -20,7 +20,7 @@ jest.mock('../components/Toast', () => ({
     ) : null;
   }),
 }));
-const MockToast = jest.requireMock('../components/Toast').default;
+const MockedToastComponent = jest.requireMock('../components/Toast').default;
 
 jest.spyOn(console, 'warn').mockImplementation(() => {});
 jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -93,7 +93,7 @@ describe('Tasks', () => {
     fireEvent.click(screen.getByText('Submit'));
 
     await waitFor(() => {
-      expect(MockToast).toBeTruthy();
+      expect(MockedToastComponent).toBeTruthy();
     });
   });
 
@@ -162,7 +162,7 @@ describe('Tasks', () => {
     fireEvent.click(screen.getByText('Submit'));
 
     await waitFor(() => {
-      expect(MockToast).toBeTruthy();
+      expect(MockedToastComponent).toBeTruthy();
     });
   });
 });
