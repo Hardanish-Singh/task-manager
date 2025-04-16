@@ -20,14 +20,18 @@ describe('EditIcon', () => {
 
   it('should navigate to the correct path when the edit icon is clicked', () => {
     jest.mocked(useNavigate).mockReturnValue(mockNavigate);
+
     render(
       <BrowserRouter>
         <EditIcon id={mockId} />
       </BrowserRouter>
     );
+
     const editIcon = screen.getByTestId('edit-icon');
     expect(editIcon).toBeTruthy();
+
     fireEvent.click(editIcon);
+
     expect(mockNavigate).toHaveBeenCalledWith(`/tasks/${mockId}`);
   });
 });
