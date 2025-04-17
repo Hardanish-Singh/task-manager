@@ -16,20 +16,18 @@ const ViewTasks = () => {
   const [sortOrder, setSortOrder] = useState<string>('asc');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  const fetchTasks = () => {
-    (async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/api/tasks`, {
-          params: { sortBy, sortOrder, searchTerm, status },
-        });
-        setTasks(response.data);
-      } catch (error) {
-        console.error('Error fetching tasks', error);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    })();
+  const fetchTasks = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/api/tasks`, {
+        params: { sortBy, sortOrder, searchTerm, status },
+      });
+      setTasks(response.data);
+    } catch (error) {
+      console.error('Error fetching tasks', error);
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSort = (column: string) => {
@@ -42,10 +40,6 @@ const ViewTasks = () => {
       setSortOrder('asc');
     }
   };
-
-  useEffect(() => {
-    fetchTasks();
-  }, []);
 
   useEffect(() => {
     fetchTasks();
