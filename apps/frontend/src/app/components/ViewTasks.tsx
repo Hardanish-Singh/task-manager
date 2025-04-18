@@ -30,6 +30,10 @@ const ViewTasks = () => {
     }
   };
 
+  useEffect(() => {
+    fetchTasks();
+  }, [status, sortBy, sortOrder, searchTerm]);
+
   const handleSort = (column: string) => {
     if (sortBy === column) {
       // Toggle sort order
@@ -40,10 +44,6 @@ const ViewTasks = () => {
       setSortOrder('asc');
     }
   };
-
-  useEffect(() => {
-    fetchTasks();
-  }, [status, sortBy, sortOrder, searchTerm]);
 
   if (error) {
     return <p>Error fetching tasks, please refresh the page and retry</p>;
