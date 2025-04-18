@@ -104,14 +104,14 @@ const ViewTasks = () => {
                     className="border px-4 py-2 text-left cursor-pointer"
                     onClick={() => handleSort('title')}
                   >
-                    Title{' '}
+                    Title
                     {sortBy === 'title' && (sortOrder === 'asc' ? '↑' : '↓')}
                   </th>
                   <th
                     className="border px-4 py-2 text-left cursor-pointer"
                     onClick={() => handleSort('description')}
                   >
-                    Description{' '}
+                    Description
                     {sortBy === 'description' &&
                       (sortOrder === 'asc' ? '↑' : '↓')}
                   </th>
@@ -119,14 +119,14 @@ const ViewTasks = () => {
                     className="border px-4 py-2 text-left cursor-pointer"
                     onClick={() => handleSort('status')}
                   >
-                    Status{' '}
+                    Status
                     {sortBy === 'status' && (sortOrder === 'asc' ? '↑' : '↓')}
                   </th>
                   <th
                     className="border px-4 py-2 text-left cursor-pointer"
                     onClick={() => handleSort('createdAt')}
                   >
-                    Created At{' '}
+                    Created At
                     {sortBy === 'createdAt' &&
                       (sortOrder === 'asc' ? '↑' : '↓')}
                   </th>

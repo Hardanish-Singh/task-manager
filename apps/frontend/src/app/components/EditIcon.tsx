@@ -16,7 +16,6 @@ const EditIcon = ({ id }: { id: string }) => {
         onClick={() => navigate(`/tasks/${id}`)}
         data-testid="edit-icon"
       >
-        {' '}
         <path
           strokeLinecap="round"
           strokeLinejoin="round"

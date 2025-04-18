@@ -9,19 +9,19 @@ const App = () => (
         <h1 className="text-2xl font-bold">
           <Link to="/" className="cursor-pointer">
             Task Manager
-          </Link>{' '}
+          </Link>
         </h1>
         <nav>
           <ul className="flex space-x-6">
             <li>
               <Link to="/" className="hover:underline">
                 Home
-              </Link>{' '}
+              </Link>
             </li>
             <li>
               <Link to="/tasks" className="hover:underline">
                 Create Task
-              </Link>{' '}
+              </Link>
             </li>
           </ul>
         </nav>
