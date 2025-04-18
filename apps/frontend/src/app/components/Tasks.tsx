@@ -57,52 +57,34 @@ const Tasks = () => {
   };
 
   const handleSubmit = async () => {
-    if (id) {
-      try {
-        setIsSubmitClicked(true);
-        const response = await axios.patch(
-          `http://localhost:3000/api/tasks/${data.id}`,
-          data
-        );
-        if (response.status === 200) {
-          setToast({
-            message: response.data.message,
-            type: 'success',
-            show: true,
-          });
-        }
-      } catch (error) {
-        setIsSubmitClicked(false);
-        console.error('Error updating task', error);
+    const isEditMode = Boolean(id);
+    const url = isEditMode
+      ? `http://localhost:3000/api/tasks/${data.id}`
+      : 'http://localhost:3000/api/tasks';
+    const method = isEditMode ? 'patch' : 'post';
+
+    try {
+      setIsSubmitClicked(true);
+      const response = await axios[method](url, data);
+      const successStatus = isEditMode ? 200 : 201;
+      if (response.status === successStatus) {
         setToast({
-          message: 'Error updating task',
-          type: 'error',
+          message: response.data.message,
+          type: 'success',
           show: true,
         });
       }
-    } else {
-      try {
-        setIsSubmitClicked(true);
-        const response = await axios.post(
-          'http://localhost:3000/api/tasks',
-          data
-        );
-        if (response.status === 201) {
-          setToast({
-            message: response.data.message,
-            type: 'success',
-            show: true,
-          });
-        }
-      } catch (error) {
-        setIsSubmitClicked(false);
-        console.error('Error creating task:', error);
-        setToast({
-          message: 'Error creating task',
-          type: 'error',
-          show: true,
-        });
-      }
+    } catch (error) {
+      setIsSubmitClicked(false);
+      console.error(
+        `Error ${isEditMode ? 'updating' : 'creating'} task:`,
+        error
+      );
+      setToast({
+        message: `Error ${isEditMode ? 'updating' : 'creating'} task`,
+        type: 'error',
+        show: true,
+      });
     }
   };
 
