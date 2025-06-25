@@ -8,6 +8,7 @@ const Toast = ({ message, type, onClose }: ToastProps) => {
     }, 500);
     return () => clearTimeout(timer);
   }, [message, onClose]);
+
   return (
     <div
       className={`
