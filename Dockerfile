@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy the package.json and package-lock.json to install dependencies
 COPY package*.json ./
 
-# Install dependencies using Nx
+# Install dependencies using NX
 RUN npm install -g nx
 RUN npm install
 
