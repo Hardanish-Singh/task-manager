@@ -4,7 +4,7 @@ FROM node:20.19-alpine3.20
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the package.json and package-lock.json to install dependencies
+# Copy the package.json and package-lock.json to install the dependencies
 COPY package*.json ./
 
 # Install dependencies using NX
