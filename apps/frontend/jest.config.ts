@@ -9,6 +9,5 @@ export default {
   collectCoverage: true,
   coverageDirectory: 'test-output/jest/coverage',
   coverageReporters: ['html', 'text'],
-  // Optionally include/exclude specific files
   collectCoverageFrom: ['**/*.tsx', '!**/*.spec.ts'],
 };
