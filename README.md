@@ -1,4 +1,4 @@
-# Task Manager
+# Task Manager.
 
 Task Manager is a full-stack web application built using the NX Monorepo architecture. The frontend is developed using ReactJS, and the backend is powered by ExpressJS. This app allows users to manage tasks with basic CRUD (Create, Read, Update, Delete) operations.
 
