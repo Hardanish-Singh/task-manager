@@ -1,4 +1,11 @@
+# Node Modules
 node_modules
+
+# Temp Files
 tmp/
+
+# Dist Files
 dist/
+
+# Git Files
 .git
