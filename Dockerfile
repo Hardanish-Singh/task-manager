@@ -14,5 +14,6 @@ RUN npm install
 # Copy the entire frontend project files to the container
 COPY . .
 
+# Expose the ports for the frontend and backend
 EXPOSE 4200
 EXPOSE 3000
