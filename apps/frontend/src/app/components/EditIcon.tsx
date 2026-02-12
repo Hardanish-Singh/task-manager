@@ -1,6 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
-const EditIcon = ({ id }: { id: string }) => {
+type EditIconProps = {
+  id: string;
+};
+
+const EditIcon = ({ id }: EditIconProps) => {
   const navigate = useNavigate();
 
   return (
