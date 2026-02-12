@@ -1,5 +1,8 @@
 # Use an official Node.js image as the base image
-FROM node:20.19-alpine3.20
+FROM node:20-alpine
+
+# Update Alpine packages to reduce vulnerabilities
+RUN apk update && apk upgrade
 
 # Set the working directory inside the container
 WORKDIR /app
