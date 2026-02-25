@@ -9,6 +9,7 @@ const swcJestConfig = JSON.parse(
 // Disable .swcrc look-up by SWC core because we're passing in swcJestConfig ourselves
 swcJestConfig.swcrc = false;
 
+// Jest configuration for the backend application
 export default {
   displayName: '@task-manager/backend',
   preset: '../../jest.preset.js',
