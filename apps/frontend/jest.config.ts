@@ -1,4 +1,5 @@
 // Jest configuration for the frontend application
+
 export default {
   displayName: 'frontend',
   preset: '../../jest.preset.js',
