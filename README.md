@@ -71,13 +71,16 @@ Run URL: http://localhost:4200/
 ```sh
 # ONLY RUN FRONTEND
 npx nx serve frontend
+
 # RUN FRONTEND TESTS
 npx nx test frontend
 
 # ONLY RUN BACKEND
 npx nx serve backend
+
 # RUN BACKEND TESTS
 npx nx test backend
+
 # SERVER URL
 http://localhost:3000/
 ```
