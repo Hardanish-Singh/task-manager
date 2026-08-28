@@ -14,7 +14,7 @@ COPY package*.json ./
 RUN npm install -g nx
 RUN npm install
 
-# Copy the entire frontend project files to the container
+# Copy the rest of the application source code to the container
 COPY . .
 
 # Expose the ports for the frontend and backend applications
